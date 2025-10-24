@@ -265,14 +265,85 @@ export default function BlogEditor() {
 
               <div>
                 <Label htmlFor="content" className="text-blue-200">Content *</Label>
+                <div className="bg-slate-800/50 border border-blue-500/30 rounded-md p-2 mb-2">
+                  <div className="flex flex-wrap gap-2 mb-2 border-b border-blue-500/20 pb-2">
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('**', '**', 'Bold text')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Bold"
+                    >
+                      <strong>B</strong>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('*', '*', 'Italic text')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Italic"
+                    >
+                      <em>I</em>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('\n## ', '', 'Heading')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Heading"
+                    >
+                      H
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('[', '](url)', 'Link text')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Link"
+                    >
+                      🔗
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('\n- ', '', 'List item')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Bullet List"
+                    >
+                      •
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('\n1. ', '', 'List item')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Numbered List"
+                    >
+                      1.
+                    </button>
+                    <button
+                      type="button"
+                      onClick={insertTable}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Insert Table"
+                    >
+                      ⊞
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFormatting('\n```\n', '\n```\n', 'Code here')}
+                      className="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-sm"
+                      title="Code Block"
+                    >
+                      {'</>'}
+                    </button>
+                  </div>
+                </div>
                 <Textarea
                   id="content"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder="Write your blog content here..."
-                  className="bg-slate-800/50 border-blue-500/30 text-white"
+                  placeholder="Write your blog content here... (Supports Markdown formatting)"
+                  className="bg-slate-800/50 border-blue-500/30 text-white font-mono"
                   rows={15}
                 />
+                <p className="text-xs text-blue-300/60 mt-1">
+                  💡 Tip: Use the toolbar above to format text, add links, and create tables
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
