@@ -1,16 +1,30 @@
-import './globals.css'
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/components/theme-provider';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Next.js MongoDB Template',
-  description: 'A simple template with App Router, MongoDB, and shadcn/ui',
-}
+  title: 'Sarkari Job Blog - Latest Government Job Updates',
+  description: 'Get the latest updates on government jobs, exam notifications, results, and career guidance.',
+  keywords: 'sarkari job, government jobs, sarkari result, bank jobs, railway jobs',
+  openGraph: {
+    title: 'Sarkari Job Blog',
+    description: 'Latest Government Job Updates',
+    type: 'website'
+  }
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
