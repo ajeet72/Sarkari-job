@@ -55,6 +55,7 @@ export default function BlogEditor() {
         setCategories(post.categories?.join(', ') || '');
         setTags(post.tags?.join(', ') || '');
         setPostStatus(post.status);
+        setScheduledDate(post.scheduledDate ? new Date(post.scheduledDate).toISOString().slice(0, 16) : '');
         setFeaturedImage(post.featuredImage || '');
         setMetaTitle(post.metaTitle || '');
         setMetaDescription(post.metaDescription || '');
