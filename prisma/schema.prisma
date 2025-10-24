@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+}
+
+model Post {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  excerpt        String?  @db.Text
+  content        String   @db.Text
+  author         String
+  tags           String[] @default([])
+  categories     String[] @default([])
+  publishedDate  DateTime?
+  updatedDate    DateTime @updatedAt
+  scheduledDate  DateTime?
+  status         String   @default("draft") // draft, published, scheduled
+  metaTitle      String?
+  metaDescription String? @db.Text
+  metaKeywords   String?  @db.Text
+  ogImage        String?
+  twitterCard    String?
+  featuredImage  String?
+  likes          Int      @default(0)
+  views          Int      @default(0)
+  createdAt      DateTime @default(now())
+  authorId       String
+  adminAuthor    Admin    @relation(fields: [authorId], references: [id])
+  
+  @@index([slug])
+  @@index([status])
+  @@index([publishedDate])
+}
