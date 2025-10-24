@@ -178,6 +178,39 @@ export default function BlogEditor() {
     }
   };
 
+  const insertFormatting = (before, after, placeholder) => {
+    const textarea = document.getElementById('content');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+    const textToInsert = selectedText || placeholder;
+    const newContent = content.substring(0, start) + before + textToInsert + after + content.substring(end);
+    setContent(newContent);
+    
+    setTimeout(() => {
+      textarea.focus();
+      const newCursorPos = start + before.length + textToInsert.length;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
+  };
+
+  const insertTable = () => {
+    const tableMarkdown = `\n
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Cell 1   | Cell 2   | Cell 3   |
+| Cell 4   | Cell 5   | Cell 6   |
+\n`;
+    const textarea = document.getElementById('content');
+    const start = textarea.selectionStart;
+    const newContent = content.substring(0, start) + tableMarkdown + content.substring(start);
+    setContent(newContent);
+    
+    setTimeout(() => {
+      textarea.focus();
+    }, 0);
+  };
+
   if (sessionStatus === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
