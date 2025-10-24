@@ -145,7 +145,7 @@ export default function BlogEditor() {
         content,
         categories: categories.split(',').map(c => c.trim()).filter(Boolean),
         tags: tags.split(',').map(t => t.trim()).filter(Boolean),
-        status,
+        status: postStatus,
         featuredImage,
         metaTitle: metaTitle || title,
         metaDescription,
