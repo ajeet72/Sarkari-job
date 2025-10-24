@@ -148,6 +148,7 @@ export default function BlogEditor() {
         categories: categories.split(',').map(c => c.trim()).filter(Boolean),
         tags: tags.split(',').map(t => t.trim()).filter(Boolean),
         status: postStatus,
+        scheduledDate: scheduledDate || null,
         featuredImage,
         metaTitle: metaTitle || title,
         metaDescription,
