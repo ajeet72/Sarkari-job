@@ -177,44 +177,44 @@ export default function BlogEditor() {
 
   if (status === 'loading') {
     return (
-      <div className=\"min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center\">
-        <div className=\"text-white text-xl\">Loading...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className=\"min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900\">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
       {/* Header */}
-      <header className=\"border-b border-blue-900/30 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50\">
-        <div className=\"container mx-auto px-4 py-4\">
-          <div className=\"flex items-center justify-between\">
-            <Link href=\"/admin/dashboard\">
-              <div className=\"flex items-center gap-3 group cursor-pointer\">
-                <div className=\"bg-gradient-to-r from-blue-500 to-cyan-500 p-2 rounded-lg\">
-                  <Briefcase className=\"h-6 w-6 text-white\" />
+      <header className="border-b border-blue-900/30 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/admin/dashboard">
+              <div className="flex items-center gap-3 group cursor-pointer">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-2 rounded-lg">
+                  <Briefcase className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className=\"text-2xl font-bold text-white\">{postId ? 'Edit Post' : 'New Post'}</h1>
+                  <h1 className="text-2xl font-bold text-white">{postId ? 'Edit Post' : 'New Post'}</h1>
                 </div>
               </div>
             </Link>
-            <div className=\"flex gap-2\">
+            <div className="flex gap-2">
               <Button
                 onClick={generateAIContent}
                 disabled={aiLoading || !content}
-                variant=\"outline\"
-                className=\"border-purple-500/30 text-purple-300 hover:bg-purple-900/30\"
+                variant="outline"
+                className="border-purple-500/30 text-purple-300 hover:bg-purple-900/30"
               >
-                <Sparkles className=\"h-4 w-4 mr-2\" />
+                <Sparkles className="h-4 w-4 mr-2" />
                 {aiLoading ? 'Generating...' : 'AI Enhance'}
               </Button>
               <Button
                 onClick={handleSave}
                 disabled={loading}
-                className=\"bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700\"
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
               >
-                <Save className=\"h-4 w-4 mr-2\" />
+                <Save className="h-4 w-4 mr-2" />
                 {loading ? 'Saving...' : 'Save Post'}
               </Button>
             </div>
@@ -222,90 +222,90 @@ export default function BlogEditor() {
         </div>
       </header>
 
-      <div className=\"container mx-auto px-4 py-8 max-w-5xl\">
-        <Link href=\"/admin/dashboard\">
-          <Button variant=\"outline\" className=\"mb-6 border-blue-500/30 text-blue-300 hover:bg-blue-900/30\">
-            <ArrowLeft className=\"h-4 w-4 mr-2\" />
+      <div className="container mx-auto px-4 py-8 max-w-5xl">
+        <Link href="/admin/dashboard">
+          <Button variant="outline" className="mb-6 border-blue-500/30 text-blue-300 hover:bg-blue-900/30">
+            <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Button>
         </Link>
 
-        <div className=\"grid gap-6\">
+        <div className="grid gap-6">
           {/* Basic Info */}
-          <Card className=\"bg-slate-900/50 border-blue-500/20\">
+          <Card className="bg-slate-900/50 border-blue-500/20">
             <CardHeader>
-              <CardTitle className=\"text-white\">Basic Information</CardTitle>
+              <CardTitle className="text-white">Basic Information</CardTitle>
             </CardHeader>
-            <CardContent className=\"space-y-4\">
+            <CardContent className="space-y-4">
               <div>
-                <Label htmlFor=\"title\" className=\"text-blue-200\">Title *</Label>
+                <Label htmlFor="title" className="text-blue-200">Title *</Label>
                 <Input
-                  id=\"title\"
+                  id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder=\"Enter post title\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="Enter post title"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                 />
               </div>
 
               <div>
-                <Label htmlFor=\"excerpt\" className=\"text-blue-200\">Excerpt</Label>
+                <Label htmlFor="excerpt" className="text-blue-200">Excerpt</Label>
                 <Textarea
-                  id=\"excerpt\"
+                  id="excerpt"
                   value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  placeholder=\"Short description (AI can generate this)\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="Short description (AI can generate this)"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                   rows={3}
                 />
               </div>
 
               <div>
-                <Label htmlFor=\"content\" className=\"text-blue-200\">Content *</Label>
+                <Label htmlFor="content" className="text-blue-200">Content *</Label>
                 <Textarea
-                  id=\"content\"
+                  id="content"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder=\"Write your blog content here...\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="Write your blog content here..."
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                   rows={15}
                 />
               </div>
 
-              <div className=\"grid grid-cols-2 gap-4\">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor=\"categories\" className=\"text-blue-200\">Categories (comma-separated)</Label>
+                  <Label htmlFor="categories" className="text-blue-200">Categories (comma-separated)</Label>
                   <Input
-                    id=\"categories\"
+                    id="categories"
                     value={categories}
                     onChange={(e) => setCategories(e.target.value)}
-                    placeholder=\"Bank Jobs, Railway Jobs\"
-                    className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                    placeholder="Bank Jobs, Railway Jobs"
+                    className="bg-slate-800/50 border-blue-500/30 text-white"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor=\"tags\" className=\"text-blue-200\">Tags (comma-separated)</Label>
+                  <Label htmlFor="tags" className="text-blue-200">Tags (comma-separated)</Label>
                   <Input
-                    id=\"tags\"
+                    id="tags"
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
-                    placeholder=\"sarkari, government, jobs\"
-                    className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                    placeholder="sarkari, government, jobs"
+                    className="bg-slate-800/50 border-blue-500/30 text-white"
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor=\"status\" className=\"text-blue-200\">Status</Label>
+                <Label htmlFor="status" className="text-blue-200">Status</Label>
                 <Select value={status} onValueChange={setStatus}>
-                  <SelectTrigger className=\"bg-slate-800/50 border-blue-500/30 text-white\">
+                  <SelectTrigger className="bg-slate-800/50 border-blue-500/30 text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className=\"bg-slate-900 border-blue-500/30\">
-                    <SelectItem value=\"draft\" className=\"text-white\">Draft</SelectItem>
-                    <SelectItem value=\"published\" className=\"text-white\">Published</SelectItem>
-                    <SelectItem value=\"scheduled\" className=\"text-white\">Scheduled</SelectItem>
+                  <SelectContent className="bg-slate-900 border-blue-500/30">
+                    <SelectItem value="draft" className="text-white">Draft</SelectItem>
+                    <SelectItem value="published" className="text-white">Published</SelectItem>
+                    <SelectItem value="scheduled" className="text-white">Scheduled</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -313,67 +313,67 @@ export default function BlogEditor() {
           </Card>
 
           {/* Featured Image */}
-          <Card className=\"bg-slate-900/50 border-blue-500/20\">
+          <Card className="bg-slate-900/50 border-blue-500/20">
             <CardHeader>
-              <CardTitle className=\"text-white\">Featured Image</CardTitle>
+              <CardTitle className="text-white">Featured Image</CardTitle>
             </CardHeader>
-            <CardContent className=\"space-y-4\">
+            <CardContent className="space-y-4">
               <div>
-                <Label htmlFor=\"image\" className=\"text-blue-200\">Upload Image</Label>
+                <Label htmlFor="image" className="text-blue-200">Upload Image</Label>
                 <Input
-                  id=\"image\"
-                  type=\"file\"
-                  accept=\"image/*\"
+                  id="image"
+                  type="file"
+                  accept="image/*"
                   onChange={handleImageUpload}
                   disabled={uploading}
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                 />
               </div>
               {featuredImage && (
                 <div>
-                  <img src={featuredImage} alt=\"Featured\" className=\"rounded-lg max-h-64 object-cover\" />
+                  <img src={featuredImage} alt="Featured" className="rounded-lg max-h-64 object-cover" />
                 </div>
               )}
             </CardContent>
           </Card>
 
           {/* SEO */}
-          <Card className=\"bg-slate-900/50 border-blue-500/20\">
+          <Card className="bg-slate-900/50 border-blue-500/20">
             <CardHeader>
-              <CardTitle className=\"text-white\">SEO Settings</CardTitle>
+              <CardTitle className="text-white">SEO Settings</CardTitle>
             </CardHeader>
-            <CardContent className=\"space-y-4\">
+            <CardContent className="space-y-4">
               <div>
-                <Label htmlFor=\"metaTitle\" className=\"text-blue-200\">Meta Title</Label>
+                <Label htmlFor="metaTitle" className="text-blue-200">Meta Title</Label>
                 <Input
-                  id=\"metaTitle\"
+                  id="metaTitle"
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
-                  placeholder=\"SEO-friendly title\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="SEO-friendly title"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                 />
               </div>
 
               <div>
-                <Label htmlFor=\"metaDescription\" className=\"text-blue-200\">Meta Description</Label>
+                <Label htmlFor="metaDescription" className="text-blue-200">Meta Description</Label>
                 <Textarea
-                  id=\"metaDescription\"
+                  id="metaDescription"
                   value={metaDescription}
                   onChange={(e) => setMetaDescription(e.target.value)}
-                  placeholder=\"150-160 characters (AI can generate this)\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="150-160 characters (AI can generate this)"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                   rows={3}
                 />
               </div>
 
               <div>
-                <Label htmlFor=\"metaKeywords\" className=\"text-blue-200\">Meta Keywords</Label>
+                <Label htmlFor="metaKeywords" className="text-blue-200">Meta Keywords</Label>
                 <Input
-                  id=\"metaKeywords\"
+                  id="metaKeywords"
                   value={metaKeywords}
                   onChange={(e) => setMetaKeywords(e.target.value)}
-                  placeholder=\"Comma-separated keywords (AI can generate this)\"
-                  className=\"bg-slate-800/50 border-blue-500/30 text-white\"
+                  placeholder="Comma-separated keywords (AI can generate this)"
+                  className="bg-slate-800/50 border-blue-500/30 text-white"
                 />
               </div>
             </CardContent>
