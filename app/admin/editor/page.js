@@ -297,8 +297,8 @@ export default function BlogEditor() {
               </div>
 
               <div>
-                <Label htmlFor="status" className="text-blue-200">Status</Label>
-                <Select value={status} onValueChange={setStatus}>
+                <Label htmlFor="postStatus" className="text-blue-200">Status</Label>
+                <Select value={postStatus} onValueChange={setPostStatus}>
                   <SelectTrigger className="bg-slate-800/50 border-blue-500/30 text-white">
                     <SelectValue />
                   </SelectTrigger>
