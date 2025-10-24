@@ -416,6 +416,23 @@ export default function BlogEditor() {
                   </SelectContent>
                 </Select>
               </div>
+
+              {postStatus === 'scheduled' && (
+                <div>
+                  <Label htmlFor="scheduledDate" className="text-blue-200">Schedule Date & Time *</Label>
+                  <Input
+                    id="scheduledDate"
+                    type="datetime-local"
+                    value={scheduledDate}
+                    onChange={(e) => setScheduledDate(e.target.value)}
+                    className="bg-slate-800/50 border-blue-500/30 text-white"
+                    required={postStatus === 'scheduled'}
+                  />
+                  <p className="text-xs text-blue-300/60 mt-1">
+                    Post will be automatically published at this date and time
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
 
