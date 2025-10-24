@@ -175,7 +175,7 @@ export default function BlogEditor() {
     }
   };
 
-  if (status === 'loading') {
+  if (sessionStatus === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
