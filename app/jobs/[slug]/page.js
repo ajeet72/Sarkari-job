@@ -71,6 +71,7 @@ export default function BlogDetail() {
 
   const renderContent = (content) => {
     try {
+      // Try to parse as JSON first (Editor.js format)
       const data = JSON.parse(content);
       return data.blocks?.map((block, index) => {
         switch (block.type) {
@@ -104,8 +105,72 @@ export default function BlogDetail() {
         }
       });
     } catch (error) {
-      return <div className="text-blue-100/80" dangerouslySetInnerHTML={{ __html: content }} />;
+      // If not JSON, render as markdown-style content
+      return renderMarkdown(content);
     }
+  };
+
+  const renderMarkdown = (text) => {
+    // Convert markdown to HTML
+    let html = text;
+    
+    // Headers
+    html = html.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold text-white my-4">$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-white my-4">$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1 class="text-4xl font-bold text-white my-4">$1</h1>');
+    
+    // Bold
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>');
+    
+    // Italic
+    html = html.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+    
+    // Links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">$1</a>');
+    
+    // Code blocks
+    html = html.replace(/```([^`]+)```/g, '<pre class="bg-slate-800 p-4 rounded-lg my-4 overflow-x-auto"><code class="text-blue-300">$1</code></pre>');
+    
+    // Unordered lists
+    html = html.replace(/^\- (.*$)/gim, '<li class="ml-6">$1</li>');
+    html = html.replace(/(<li class="ml-6">.*<\/li>)/s, '<ul class="list-disc text-blue-100/80 my-4">$1</ul>');
+    
+    // Ordered lists
+    html = html.replace(/^\d+\. (.*$)/gim, '<li class="ml-6">$1</li>');
+    
+    // Tables (markdown format)
+    const tableRegex = /\|(.+)\|\n\|[-:\s|]+\|\n((?:\|.+\|\n?)+)/g;
+    html = html.replace(tableRegex, (match, header, body) => {
+      const headers = header.split('|').filter(h => h.trim()).map(h => h.trim());
+      const rows = body.trim().split('\n').map(row => 
+        row.split('|').filter(cell => cell.trim()).map(cell => cell.trim())
+      );
+      
+      return `
+        <div class="overflow-x-auto my-6">
+          <table class="min-w-full border border-blue-500/30 rounded-lg">
+            <thead class="bg-slate-800">
+              <tr>
+                ${headers.map(h => `<th class="border border-blue-500/30 px-4 py-2 text-white font-semibold">${h}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(row => `
+                <tr class="hover:bg-slate-800/50">
+                  ${row.map(cell => `<td class="border border-blue-500/30 px-4 py-2 text-blue-100/80">${cell}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    });
+    
+    // Paragraphs
+    html = html.replace(/\n\n/g, '</p><p class="text-blue-100/80 my-4 leading-relaxed">');
+    html = `<p class="text-blue-100/80 my-4 leading-relaxed">${html}</p>`;
+    
+    return <div dangerouslySetInnerHTML={{ __html: html }} />;
   };
 
   if (loading) {
