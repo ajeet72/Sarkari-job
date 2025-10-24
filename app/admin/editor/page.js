@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import { ArrowLeft, Save, Eye, Briefcase, Upload, Sparkles } from 'lucide-react';
 
 export default function BlogEditor() {
-  const { data: session, status } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
   const postId = searchParams.get('id');
@@ -24,7 +24,7 @@ export default function BlogEditor() {
   const [content, setContent] = useState('');
   const [categories, setCategories] = useState('');
   const [tags, setTags] = useState('');
-  const [status, setStatus] = useState('draft');
+  const [postStatus, setPostStatus] = useState('draft');
   const [featuredImage, setFeaturedImage] = useState('');
   const [metaTitle, setMetaTitle] = useState('');
   const [metaDescription, setMetaDescription] = useState('');
@@ -34,12 +34,12 @@ export default function BlogEditor() {
   const [aiLoading, setAiLoading] = useState(false);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (sessionStatus === 'unauthenticated') {
       router.push('/admin/login');
-    } else if (status === 'authenticated' && postId) {
+    } else if (sessionStatus === 'authenticated' && postId) {
       fetchPost();
     }
-  }, [status, postId]);
+  }, [sessionStatus, postId]);
 
   const fetchPost = async () => {
     try {
