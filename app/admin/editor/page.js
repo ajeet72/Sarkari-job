@@ -53,7 +53,7 @@ export default function BlogEditor() {
         setContent(post.content);
         setCategories(post.categories?.join(', ') || '');
         setTags(post.tags?.join(', ') || '');
-        setStatus(post.status);
+        setPostStatus(post.status);
         setFeaturedImage(post.featuredImage || '');
         setMetaTitle(post.metaTitle || '');
         setMetaDescription(post.metaDescription || '');
