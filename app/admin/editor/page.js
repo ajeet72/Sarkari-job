@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -13,7 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { ArrowLeft, Save, Eye, Briefcase, Upload, Sparkles } from 'lucide-react';
 
-export default function BlogEditor() {
+// Component that uses useSearchParams
+function BlogEditorContent() {
   const { data: session, status: sessionStatus } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -505,5 +506,18 @@ export default function BlogEditor() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function BlogEditor() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 flex items-center justify-center">
+        <div className="text-white text-xl">Loading editor...</div>
+      </div>
+    }>
+      <BlogEditorContent />
+    </Suspense>
   );
 }
