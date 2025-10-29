@@ -6,6 +6,9 @@ import { authOptions } from '@/lib/auth';
 import cloudinary from '@/lib/cloudinary';
 import { generateExcerpt, generateSEO } from '@/lib/openai';
 
+export const dynamic = 'force-dynamic'; // <-- Add this
+export const runtime = 'nodejs'; 
+
 // Helper function to handle CORS
 function handleCORS(response) {
   response.headers.set('Access-Control-Allow-Origin', process.env.CORS_ORIGINS || '*');
