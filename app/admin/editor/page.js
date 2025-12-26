@@ -12,6 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { ArrowLeft, Save, Eye, Briefcase, Upload, Sparkles } from 'lucide-react';
+import { CATEGORIES } from '@/lib/Types';
+
 
 // Component that uses useSearchParams
 function BlogEditorContent() {
@@ -34,6 +36,8 @@ function BlogEditorContent() {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
+  const [category, setCategory] = useState("");
+
 
   useEffect(() => {
     if (sessionStatus === 'unauthenticated') {
@@ -53,7 +57,7 @@ function BlogEditorContent() {
         setTitle(post.title);
         setExcerpt(post.excerpt || '');
         setContent(post.content);
-        setCategories(post.categories?.join(', ') || '');
+        setCategory(post.categories?.[0] || "");
         setTags(post.tags?.join(', ') || '');
         setPostStatus(post.status);
         setScheduledDate(post.scheduledDate ? new Date(post.scheduledDate).toISOString().slice(0, 16) : '');
@@ -146,7 +150,7 @@ function BlogEditorContent() {
         title,
         excerpt,
         content,
-        categories: categories.split(',').map(c => c.trim()).filter(Boolean),
+        categories: category ? [category] : [], // ✅ FIX
         tags: tags.split(',').map(t => t.trim()).filter(Boolean),
         status: postStatus,
         scheduledDate: scheduledDate || null,
@@ -382,14 +386,23 @@ function BlogEditorContent() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="categories" className="text-blue-200">Categories (comma-separated)</Label>
-                  <Input
-                    id="categories"
-                    value={categories}
-                    onChange={(e) => setCategories(e.target.value)}
-                    placeholder="Bank Jobs, Railway Jobs"
-                    className="bg-slate-800/50 border-blue-500/30 text-white"
-                  />
+                  <Label htmlFor="tags" className="text-blue-200">Categories</Label>
+                  <Select
+                    value={category}
+                    onValueChange={setCategory}
+                  >
+                    <SelectTrigger className="bg-slate-800/50 border-blue-500/30 text-white">
+                      <SelectValue placeholder="Select Category" />
+                    </SelectTrigger>
+
+                    <SelectContent className="bg-slate-900 border-blue-500/30">
+                      {CATEGORIES.map((cat) => (
+                        <SelectItem key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 
 import { InfoColumn } from "@/components/InfoColumn";
+import { CATEGORIES } from "@/lib/Types";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -82,7 +83,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
-
       {/* ================= HEADER ================= */}
       <header className="border-b border-blue-900/30 bg-slate-950/50 backdrop-blur sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between">
@@ -91,9 +91,7 @@ export default function HomePage() {
               <Briefcase className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">
-                OnlineAlert.in
-              </h1>
+              <h1 className="text-2xl font-bold text-white">OnlineAlert.in</h1>
               <p className="text-xs text-blue-300/70">
                 Click, Complete, Stay Connected
               </p>
@@ -124,22 +122,22 @@ export default function HomePage() {
                 />
               </div>
 
-              <Select
-                value={selectedCategory}
-                onValueChange={setSelectedCategory}
-              >
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger className="md:w-[200px] bg-slate-800/50 border-blue-500/30 text-white">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
+
                 <SelectContent className="bg-slate-900 border-blue-500/30">
                   <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>
-                      {cat}
+
+                  {CATEGORIES.map((cat) => (
+                    <SelectItem key={cat.value} value={cat.value}>
+                      {cat.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+
 
               <Button
                 onClick={fetchPosts}
@@ -155,10 +153,7 @@ export default function HomePage() {
       {/* ================= POSTS ================= */}
       <section className="py-12 px-4">
         <div className="container mx-auto">
-
-          <h3 className="text-3xl font-bold text-white mb-8">
-            Latest Updates
-          </h3>
+          <h3 className="text-3xl font-bold text-white mb-8">Latest Updates</h3>
 
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -171,9 +166,7 @@ export default function HomePage() {
             </div>
           ) : isFiltered ? (
             posts.length === 0 ? (
-              <p className="text-center text-blue-300">
-                No posts found
-              </p>
+              <p className="text-center text-blue-300">No posts found</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {posts.map((post) => (
@@ -223,28 +216,45 @@ export default function HomePage() {
               </div>
             )
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <InfoColumn
-                title="Banking Updates"
-                posts={posts.filter((p) =>
-                  p.categories?.includes("banking")
-                )}
-                href="/updates"
-              />
-              <InfoColumn
-                title="Latest Jobs"
-                posts={posts.filter((p) =>
-                  p.categories?.includes("job")
-                )}
-                href="/jobs"
-              />
-              <InfoColumn
-                title="Sarkari Yojana"
-                posts={posts.filter((p) =>
-                  p.categories?.includes("SSC")
-                )}
-                href="/yojana"
-              />
+            <div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-16">
+                <InfoColumn
+                  title="Banking Updates"
+                  posts={posts.filter((p) => p.categories?.includes("Banking Updates"))}
+                  href="/banking-updates"
+                />
+
+                <InfoColumn
+                  title="Latest Jobs"
+                  posts={posts.filter((p) => p.categories?.includes("Latest Jobs"))}
+                  href="/latest-jobs"
+                />
+
+                <InfoColumn
+                  title="Sarkari Yojana"
+                  posts={posts.filter((p) => p.categories?.includes("Sarkari Yojana"))}
+                  href="/sarkari-yojana"
+                />
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <InfoColumn
+                  title="Admit Card"
+                  posts={posts.filter((p) => p.categories?.includes("Admit Card"))}
+                  href="/admit-card"
+                />
+
+                <InfoColumn
+                  title="Results"
+                  posts={posts.filter((p) => p.categories?.includes("Results"))}
+                  href="/results"
+                />
+
+                <InfoColumn
+                  title="Admission"
+                  posts={posts.filter((p) => p.categories?.includes("Admission"))}
+                  href="/admission"
+                />
+              </div>
             </div>
           )}
         </div>

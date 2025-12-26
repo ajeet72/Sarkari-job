@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function InfoColumn({ title, posts, href }) {
   return (
-    <div className="bg-slate-900/60 border border-blue-500/20 rounded-xl overflow-hidden">
+    <div className="bg-slate-900/60 border border-blue-500/20 rounded-xl h-fit">
 
       {/* Header */}
       <div className="bg-blue-950/60 px-4 py-3 border-b border-blue-500/20">
@@ -10,7 +10,7 @@ export function InfoColumn({ title, posts, href }) {
       </div>
 
       {/* List */}
-      <ul className="divide-y divide-blue-500/10 max-h-[360px] overflow-y-auto">
+      <ul className="divide-y divide-blue-500/10">
         {posts.slice(0, 8).map((post) => (
           <li
             key={post.id}
